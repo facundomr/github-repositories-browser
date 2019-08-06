@@ -2,6 +2,5 @@
     <string name="app_name">GitHub Browser</string>
     <string name="search">Search repositories</string>
     <string name="enter_user_name">GitHub username</string>
-    <string name="searching_user_repositories">Searching user repositories...</string>
-    <string name="title_activity_user_search">UserSearchActivity</string>
+    <string name="searching_user_repositories">Searching user repositories…</string>
 </resources>
