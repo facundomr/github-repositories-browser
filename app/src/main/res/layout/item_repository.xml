@@ -2,9 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
-              android:orientation="vertical"
               android:layout_height="match_parent"
-              android:padding="16dp">
+              android:paddingTop="16dp"
+              android:paddingLeft="16dp"
+              android:paddingStart="16dp"
+              android:paddingEnd="16dp"
+              android:paddingRight="16dp"
+              android:orientation="vertical">
 
     <TextView
             android:id="@+id/repositoryTitle"
@@ -20,5 +24,10 @@
               android:layout_marginTop="4dp"
               tools:text="http://www.github.com/user/repoUrl"
               android:autoLink="web"/>
+
+    <View android:layout_width="match_parent"
+          android:layout_height="0.5dp"
+          android:layout_marginTop="16dp"
+          android:background="@color/grey"/>
 
 </LinearLayout>

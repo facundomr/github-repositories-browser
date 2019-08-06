@@ -20,12 +20,13 @@
     <TextView
             android:id="@+id/progress_message"
             android:layout_width="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_height="wrap_content"
             app:layout_constraintRight_toRightOf="parent"
-            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/progress"
-            android:text="@string/searching_user_repositories"/>
+            android:text="@string/searching_user_repositories"
+            android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"

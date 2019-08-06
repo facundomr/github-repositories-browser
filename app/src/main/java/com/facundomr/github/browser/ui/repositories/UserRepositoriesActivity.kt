@@ -8,7 +8,7 @@ import com.facundomr.github.browser.R
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.facundomr.github.browser.ui.repositories.UserRepositoriesViewModel.RepositoriesViewState.*
-import kotlinx.android.synthetic.main.activity_repositories.*
+import kotlinx.android.synthetic.main.activity_user_repositories.*
 
 class UserRepositoriesActivity : AppCompatActivity() {
 
@@ -18,7 +18,7 @@ class UserRepositoriesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_repositories)
+        setContentView(R.layout.activity_user_repositories)
 
         val username = intent.extras?.getString("username", "")!!
         viewModel = ViewModelProviders.of(this, UserRepositoriesViewModelFactory(username)).get(UserRepositoriesViewModel::class.java)
