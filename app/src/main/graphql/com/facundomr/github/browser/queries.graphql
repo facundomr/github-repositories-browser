@@ -1,0 +1,26 @@
+query ReposByUserQuery($username: String!) {
+    user(login: $username) {
+        repositories(first: 50) {
+            totalCount
+            nodes {
+                name
+                url
+                owner {
+                    login
+                }
+                closedPrs: pullRequests(states:[CLOSED, MERGED]) {
+                    totalCount
+                }
+                openPrs: pullRequests(states:[OPEN]) {
+                    totalCount
+                }
+                closedIssues: issues(states: [CLOSED]) {
+                    totalCount
+                }
+                openIssues: issues(states: [OPEN]) {
+                    totalCount
+                }
+            }
+        }
+    }
+}
