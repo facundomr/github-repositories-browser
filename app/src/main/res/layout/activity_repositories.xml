@@ -7,13 +7,28 @@
         android:layout_height="match_parent"
         tools:context=".ui.RepositoriesActivity">
 
-    <TextView
+    <ProgressBar android:id="@+id/progress"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 app:layout_constraintRight_toRightOf="parent"
+                 app:layout_constraintLeft_toLeftOf="parent"
+                 android:visibility="gone"
+                 app:layout_constraintTop_toTopOf="parent"
+                 app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView android:id="@+id/progress_message"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              app:layout_constraintRight_toRightOf="parent"
+              android:visibility="gone"
+              app:layout_constraintLeft_toLeftOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/progress"
+              android:text="@string/searching_user_repositories"/>
+
+    <androidx.constraintlayout.widget.Group
+            android:id="@+id/searching"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:constraint_referenced_ids="progress, progress_message"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

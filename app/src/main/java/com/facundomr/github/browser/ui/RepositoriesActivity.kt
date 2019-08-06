@@ -11,8 +11,9 @@ import androidx.lifecycle.ViewModelProviders
 import com.facundomr.github.browser.R
 import com.facundomr.github.browser.ReposByUserQuery
 import android.app.Activity
+import android.view.View
 import android.view.inputmethod.InputMethodManager
-
+import kotlinx.android.synthetic.main.activity_repositories.*
 
 class RepositoriesActivity : AppCompatActivity() {
 
@@ -24,12 +25,20 @@ class RepositoriesActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this).get(RepositoriesViewModel::class.java)
 
         viewModel.viewState.observe(this, Observer {
-            Toast.makeText(applicationContext, "state: ${it.name}", Toast.LENGTH_SHORT).show()
+            handleViewsVisibility(it)
         })
 
         viewModel.repositories.observe(this, Observer<List<ReposByUserQuery.Node>> {
             Toast.makeText(applicationContext, "repositories count: ${it.size}", Toast.LENGTH_LONG).show()
         })
+    }
+
+    private fun handleViewsVisibility(it: RepositoriesViewModel.RepositoriesViewState?) {
+        searching.visibility = View.GONE
+
+        when (it) {
+            RepositoriesViewModel.RepositoriesViewState.SEARCHING -> searching.visibility = View.VISIBLE
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -43,10 +52,7 @@ class RepositoriesActivity : AppCompatActivity() {
         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 viewModel.searchRepositories(query!!)
-
-                val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(searchView.windowToken, 0)
-
+                hideKeyboard(searchView)
                 return true
             }
 
@@ -56,6 +62,11 @@ class RepositoriesActivity : AppCompatActivity() {
         })
 
         return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun hideKeyboard(searchView: SearchView) {
+        val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(searchView.windowToken, 0)
     }
 
 }

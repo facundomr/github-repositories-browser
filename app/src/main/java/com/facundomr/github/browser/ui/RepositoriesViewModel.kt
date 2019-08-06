@@ -26,6 +26,7 @@ class RepositoriesViewModel : ViewModel() {
             val userData = repository.searchRepositories(user)
             userData.repositories().nodes()?.let {
                 repositories.value = it
+                viewState.value = RepositoriesViewState.OK
             }
         }
     }
