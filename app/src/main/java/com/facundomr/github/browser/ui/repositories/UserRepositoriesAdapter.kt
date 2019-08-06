@@ -1,4 +1,4 @@
-package com.facundomr.github.browser.ui
+package com.facundomr.github.browser.ui.repositories
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -11,7 +11,9 @@ import com.facundomr.github.browser.R
 import com.facundomr.github.browser.ReposByUserQuery
 import kotlinx.android.synthetic.main.item_repository.view.*
 
-class GitHubRepositoriesAdapter : PagedListAdapter<ReposByUserQuery.Node, GitHubRepositoryViewHolder>(DIFF_CALLBACK) {
+class GitHubRepositoriesAdapter : PagedListAdapter<ReposByUserQuery.Node, GitHubRepositoryViewHolder>(
+    DIFF_CALLBACK
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GitHubRepositoryViewHolder {
         val itemLayoutView = LayoutInflater.from(parent.context).inflate(R.layout.item_repository, null)

@@ -1,4 +1,4 @@
-package com.facundomr.github.browser.ui
+package com.facundomr.github.browser.ui.repositories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,9 +9,7 @@ import com.facundomr.github.browser.ReposByUserQuery
 import com.facundomr.github.browser.repository.pagination.PaginationDataSourceFactory
 import androidx.lifecycle.Transformations
 
-class RepositoriesViewModel : ViewModel() {
-
-    private val user = "jakewharton"
+class UserRepositoriesViewModel(val username: String) : ViewModel() {
 
     var repositories: LiveData<PagedList<ReposByUserQuery.Node>> = MutableLiveData()
     lateinit var viewState: LiveData<RepositoriesViewState>
@@ -21,7 +19,7 @@ class RepositoriesViewModel : ViewModel() {
     }
 
     private fun createFactory() {
-        val dataFactory = PaginationDataSourceFactory(user)
+        val dataFactory = PaginationDataSourceFactory(username)
 
         val config = PagedList.Config.Builder()
             .setPageSize(30)
