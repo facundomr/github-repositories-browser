@@ -1,6 +1,11 @@
-query ReposByUserQuery($username: String!) {
+query ReposByUserQuery($username: String!, $limit: Int!, $previousPageKey: String, $nextPageKey: String) {
     user(login: $username) {
-        repositories(first: 50) {
+        repositories(first: $limit, after:$nextPageKey, before: $previousPageKey) {
+            pageInfo {
+                startCursor
+                hasNextPage
+                endCursor
+            }
             totalCount
             nodes {
                 name

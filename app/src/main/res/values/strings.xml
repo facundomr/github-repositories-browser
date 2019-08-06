@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GitHub Repo Browser</string>
+    <string name="app_name">GitHub Browser</string>
     <string name="search">Search by user</string>
     <string name="enter_user_name">GitHub username</string>
     <string name="searching_user_repositories">Searching user repositories...</string>

@@ -1,40 +1,39 @@
 package com.facundomr.github.browser.ui
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.facundomr.github.browser.ReposByUserQuery
-import com.facundomr.github.browser.repository.GithubRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.facundomr.github.browser.repository.pagination.PaginationDataSourceFactory
+import androidx.lifecycle.Transformations
 
 class RepositoriesViewModel : ViewModel() {
 
-    private val repository : GithubRepository by lazy {
-        GithubRepository()
+    private val user = "jakewharton"
+
+    var repositories: LiveData<PagedList<ReposByUserQuery.Node>> = MutableLiveData()
+    lateinit var viewState: LiveData<RepositoriesViewState>
+
+    init {
+        createFactory()
     }
 
-    val repositories: MutableLiveData<List<ReposByUserQuery.Node>> = MutableLiveData()
-    val viewState = MutableLiveData(RepositoriesViewState.READY)
-    val currentUser = MutableLiveData<String>()
+    private fun createFactory() {
+        val dataFactory = PaginationDataSourceFactory(user)
 
-    fun searchRepositories(user: String) {
+        val config = PagedList.Config.Builder()
+            .setPageSize(30)
+            .setEnablePlaceholders(true)
+            .build()
 
-        currentUser.value = user
-        viewState.value = RepositoriesViewState.SEARCHING
+        viewState = Transformations.switchMap(dataFactory.mutableLiveData) { dataSource -> dataSource.networkState }
 
-        viewModelScope.launch(Dispatchers.Main) {
-
-            val userData = repository.searchRepositories(user)
-            userData.repositories().nodes()?.let {
-                repositories.value = it
-                viewState.value = RepositoriesViewState.OK
-            }
-        }
+        repositories = LivePagedListBuilder(dataFactory, config).build()
     }
 
     enum class RepositoriesViewState {
-        READY,
         OK,
         ERROR,
         SEARCHING
