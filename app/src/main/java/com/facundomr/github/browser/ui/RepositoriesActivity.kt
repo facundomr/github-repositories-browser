@@ -19,6 +19,8 @@ class RepositoriesActivity : AppCompatActivity() {
 
     private lateinit var viewModel: RepositoriesViewModel
 
+    private lateinit var searchView : SearchView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repositories)
@@ -29,7 +31,7 @@ class RepositoriesActivity : AppCompatActivity() {
         })
 
         viewModel.repositories.observe(this, Observer<List<ReposByUserQuery.Node>> {
-            Toast.makeText(applicationContext, "repositories count: ${it.size}", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, "repositories count: ${it.size}", Toast.LENGTH_SHORT).show()
         })
     }
 
@@ -46,7 +48,11 @@ class RepositoriesActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_search, menu)
 
         val menuItem = menu?.findItem(R.id.action_search)
-        val searchView = MenuItemCompat.getActionView(menuItem) as SearchView
+        searchView = MenuItemCompat.getActionView(menuItem) as SearchView
+
+        viewModel.currentUser.observe(this, Observer {
+            searchView.setQuery(it, false)
+        })
 
         searchView.queryHint = getString(R.string.enter_user_name)
         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
