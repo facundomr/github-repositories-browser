@@ -8,7 +8,7 @@ class GithubRepository {
         GitHubGraphQLDataSource()
     }
 
-    suspend fun searchRepos(user: String) : ReposByUserQuery.User {
+    suspend fun searchRepositories(user: String) : ReposByUserQuery.User {
         return datasource.searchRepositories(user).data()?.user()!!
     }
 

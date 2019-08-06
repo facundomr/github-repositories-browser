@@ -15,16 +15,26 @@ class RepositoriesViewModel : ViewModel() {
     }
 
     val repositories: MutableLiveData<List<ReposByUserQuery.Node>> = MutableLiveData()
+    val viewState = MutableLiveData(RepositoriesViewState.READY)
 
-    fun searchRepos(user: String) {
+    fun searchRepositories(user: String) {
+
+        viewState.value = RepositoriesViewState.SEARCHING
 
         viewModelScope.launch(Dispatchers.Main) {
 
-            val userData = repository.searchRepos(user)
+            val userData = repository.searchRepositories(user)
             userData.repositories().nodes()?.let {
                 repositories.value = it
             }
         }
+    }
+
+    enum class RepositoriesViewState {
+        READY,
+        OK,
+        ERROR,
+        SEARCHING
     }
 
 }
