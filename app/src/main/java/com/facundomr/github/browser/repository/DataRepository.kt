@@ -3,11 +3,7 @@ package com.facundomr.github.browser.repository
 import com.facundomr.github.browser.ui.model.GitHubRepository
 import com.facundomr.github.browser.ui.model.GitHubResponse
 
-class DataRepository {
-
-    private val datasource: GitHubGraphQLDataSource by lazy {
-        GitHubGraphQLDataSource()
-    }
+class DataRepository(private val datasource: GitHubGraphQLDataSource) {
 
     suspend fun searchRepositories(user: String,
                            limit: Int,
