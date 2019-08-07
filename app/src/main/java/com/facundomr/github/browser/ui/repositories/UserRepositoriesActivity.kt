@@ -14,7 +14,6 @@ import com.facundomr.github.browser.ui.model.GitHubRepository
 import com.facundomr.github.browser.ui.repositories.UserRepositoriesViewModel.RepositoriesViewState.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_user_repositories.*
-import kotlinx.android.synthetic.main.activity_user_search.*
 
 class UserRepositoriesActivity : AppCompatActivity() {
 
