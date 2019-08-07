@@ -62,12 +62,15 @@ class UserRepositoriesActivity : AppCompatActivity() {
         searching.visibility = View.GONE
         userNotFound.visibility = View.GONE
         recycler.visibility = View.GONE
+        error.visibility = View.GONE
+        emptyState.visibility = View.GONE
 
         when (it) {
             SEARCHING -> searching.visibility = View.VISIBLE
             USER_NOT_FOUND -> userNotFound.visibility = View.VISIBLE
             OK -> recycler.visibility = View.VISIBLE
-
+            ERROR_ON_FIRST_PAGE -> error.visibility = View.VISIBLE
+            EMPTY_STATE -> emptyState.visibility = View.VISIBLE
         }
     }
 
