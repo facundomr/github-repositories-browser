@@ -5,14 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.facundomr.github.browser.ReposByUserQuery
 import com.facundomr.github.browser.repository.pagination.PaginationDataSourceFactory
 import androidx.lifecycle.Transformations
+import com.facundomr.github.browser.ui.model.GitHubRepository
 
 class UserRepositoriesViewModel(val username: String) : ViewModel() {
 
     val title = MutableLiveData("$username repositories")
-    var repositories: LiveData<PagedList<ReposByUserQuery.Node>> = MutableLiveData()
+    var repositories: LiveData<PagedList<GitHubRepository>> = MutableLiveData()
     lateinit var viewState: LiveData<RepositoriesViewState>
 
     init {
@@ -33,15 +33,13 @@ class UserRepositoriesViewModel(val username: String) : ViewModel() {
         repositories = LivePagedListBuilder(dataFactory, config).build()
     }
 
-    fun shouldNavigateToDetail(gitHubRepository: ReposByUserQuery.Node?) = (gitHubRepository != null)
+    fun shouldNavigateToDetail(gitHubRepository: GitHubRepository?) = (gitHubRepository != null)
 
     enum class RepositoriesViewState {
         OK,
         ERROR_ON_FIRST_PAGE,
         ERROR_WITH_NEXT_PAGE,
         SEARCHING,
-        USER_NOT_FOUND,
         EMPTY_STATE
     }
-
 }

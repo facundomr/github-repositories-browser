@@ -10,7 +10,6 @@ import com.facundomr.github.browser.R
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.facundomr.github.browser.ui.detail.GitHubRepositoryDetailActivity
-import com.facundomr.github.browser.ui.model.GitHubRepository
 import com.facundomr.github.browser.ui.repositories.UserRepositoriesViewModel.RepositoriesViewState.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_user_repositories.*
@@ -24,12 +23,7 @@ class UserRepositoriesActivity : AppCompatActivity() {
         if (viewModel.shouldNavigateToDetail(it)) {
 
             val intent = Intent(UserRepositoriesActivity@this, GitHubRepositoryDetailActivity::class.java)
-
-            val gitHubRepository = GitHubRepository(it!!.name(),
-                it.closedPrs().totalCount(), it.openPrs().totalCount(),
-                it.closedIssues().totalCount(), it.openIssues().totalCount())
-
-            intent.putExtra("repository", gitHubRepository)
+            intent.putExtra("repository", it)
             startActivity(intent)
         }
     })
@@ -64,7 +58,6 @@ class UserRepositoriesActivity : AppCompatActivity() {
 
         if(it != ERROR_WITH_NEXT_PAGE) {
             searching.visibility = View.GONE
-            userNotFound.visibility = View.GONE
             recycler.visibility = View.GONE
             error.visibility = View.GONE
             emptyState.visibility = View.GONE
@@ -72,7 +65,6 @@ class UserRepositoriesActivity : AppCompatActivity() {
 
         when (it) {
             SEARCHING -> searching.visibility = View.VISIBLE
-            USER_NOT_FOUND -> userNotFound.visibility = View.VISIBLE
             OK -> recycler.visibility = View.VISIBLE
             ERROR_ON_FIRST_PAGE -> error.visibility = View.VISIBLE
             EMPTY_STATE -> emptyState.visibility = View.VISIBLE

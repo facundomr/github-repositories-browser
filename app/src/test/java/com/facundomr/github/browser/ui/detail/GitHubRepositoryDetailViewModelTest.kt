@@ -16,7 +16,7 @@ class GitHubRepositoryDetailViewModelTest {
     @Test
     fun whenCreatingTheViewModelTheObserversAreInTheCorrectState() {
 
-        val repository = GitHubRepository(name = "GitHub Repository Browser",
+        val repository = GitHubRepository(name = "GitHub Repository Browser", url="",
                                           closedPrs = 1, openPrs = 2,
                                           closedIssues = 3,openIssues = 4)
 
