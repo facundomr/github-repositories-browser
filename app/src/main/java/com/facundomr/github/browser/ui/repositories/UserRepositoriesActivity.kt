@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.facundomr.github.browser.ui.detail.GitHubRepositoryDetailActivity
 import com.facundomr.github.browser.ui.model.GitHubRepository
 import com.facundomr.github.browser.ui.repositories.UserRepositoriesViewModel.RepositoriesViewState.*
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_user_repositories.*
 import kotlinx.android.synthetic.main.activity_user_search.*
 
@@ -62,11 +63,13 @@ class UserRepositoriesActivity : AppCompatActivity() {
 
     private fun handleViewsVisibility(it: UserRepositoriesViewModel.RepositoriesViewState?) {
 
-        searching.visibility = View.GONE
-        userNotFound.visibility = View.GONE
-        recycler.visibility = View.GONE
-        error.visibility = View.GONE
-        emptyState.visibility = View.GONE
+        if(it != ERROR_WITH_NEXT_PAGE) {
+            searching.visibility = View.GONE
+            userNotFound.visibility = View.GONE
+            recycler.visibility = View.GONE
+            error.visibility = View.GONE
+            emptyState.visibility = View.GONE
+        }
 
         when (it) {
             SEARCHING -> searching.visibility = View.VISIBLE
@@ -74,6 +77,7 @@ class UserRepositoriesActivity : AppCompatActivity() {
             OK -> recycler.visibility = View.VISIBLE
             ERROR_ON_FIRST_PAGE -> error.visibility = View.VISIBLE
             EMPTY_STATE -> emptyState.visibility = View.VISIBLE
+            ERROR_WITH_NEXT_PAGE -> Snackbar.make(recycler, R.string.error_with_next_page, Snackbar.LENGTH_LONG).show()
         }
     }
 

@@ -9,7 +9,7 @@
     <string name="open_issues">Open issues</string>
     <string name="closed_issues">Closed issues</string>
     <string name="user_not_found">User not found. Try with another username.</string>
-    <string name="error_searching_repositories">An error occurred while trying to search for repositories. Verify your Internet connection and try again.
-    </string>
+    <string name="error_searching_repositories">An error occurred while trying to search for repositories. Verify your Internet connection and try again.</string>
     <string name="empty_state">User doesn\'t have any repositories.</string>
+    <string name="error_with_next_page">An error ocurred while fetching repositories. Verify Internet connection and try again.</string>
 </resources>

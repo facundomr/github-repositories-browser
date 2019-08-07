@@ -45,7 +45,7 @@ class PaginationDataSource(val username: String) : PageKeyedDataSource<String, R
                     viewState.postValue(RepositoriesViewState.OK)
                 }
 
-            } catch (e: Throwable) {
+            } catch (t: Throwable) {
                 viewState.postValue(RepositoriesViewState.ERROR_ON_FIRST_PAGE)
             }
 
@@ -56,14 +56,20 @@ class PaginationDataSource(val username: String) : PageKeyedDataSource<String, R
 
         GlobalScope.launch {
 
-            val result = repository.searchRepositories(user = username,
-                limit = params.requestedLoadSize,
-                nextPageKey = params.key)
+            try {
 
-            val list = result.data()?.user()?.repositories()?.nodes()!!
-            val after = result.data()?.user()?.repositories()?.pageInfo()?.endCursor()
+                val result = repository.searchRepositories(user = username,
+                    limit = params.requestedLoadSize,
+                    nextPageKey = params.key)
 
-            callback.onResult(list, after)
+                val list = result.data()?.user()?.repositories()?.nodes()!!
+                val after = result.data()?.user()?.repositories()?.pageInfo()?.endCursor()
+
+                callback.onResult(list, after)
+
+            } catch (t: Throwable) {
+                viewState.postValue(RepositoriesViewState.ERROR_WITH_NEXT_PAGE)
+            }
         }
     }
 
@@ -71,14 +77,20 @@ class PaginationDataSource(val username: String) : PageKeyedDataSource<String, R
 
         GlobalScope.launch {
 
-            val result = repository.searchRepositories(user = username,
-                limit = params.requestedLoadSize,
-                previousPageKey = params.key)
+            try {
 
-            val list = result.data()?.user()?.repositories()?.nodes()!!
-            val before = result.data()?.user()?.repositories()?.pageInfo()?.startCursor()
+                val result = repository.searchRepositories(user = username,
+                    limit = params.requestedLoadSize,
+                    previousPageKey = params.key)
 
-            callback.onResult(list, before)
+                val list = result.data()?.user()?.repositories()?.nodes()!!
+                val before = result.data()?.user()?.repositories()?.pageInfo()?.startCursor()
+
+                callback.onResult(list, before)
+
+            } catch (t: Throwable) {
+                viewState.postValue(RepositoriesViewState.ERROR_WITH_NEXT_PAGE)
+            }
         }
     }
 
