@@ -58,12 +58,16 @@ class UserRepositoriesActivity : AppCompatActivity() {
     }
 
     private fun handleViewsVisibility(it: UserRepositoriesViewModel.RepositoriesViewState?) {
+
         searching.visibility = View.GONE
+        userNotFound.visibility = View.GONE
         recycler.visibility = View.GONE
 
         when (it) {
             SEARCHING -> searching.visibility = View.VISIBLE
+            USER_NOT_FOUND -> userNotFound.visibility = View.VISIBLE
             OK -> recycler.visibility = View.VISIBLE
+
         }
     }
 

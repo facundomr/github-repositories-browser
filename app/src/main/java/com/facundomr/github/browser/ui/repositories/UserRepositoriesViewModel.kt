@@ -27,7 +27,7 @@ class UserRepositoriesViewModel(val username: String) : ViewModel() {
             .setEnablePlaceholders(true)
             .build()
 
-        viewState = Transformations.switchMap(dataFactory.mutableLiveData) { dataSource -> dataSource.networkState }
+        viewState = Transformations.switchMap(dataFactory.mutableLiveData) { dataSource -> dataSource.viewState }
 
         repositories = LivePagedListBuilder(dataFactory, config).build()
     }
@@ -36,8 +36,11 @@ class UserRepositoriesViewModel(val username: String) : ViewModel() {
 
     enum class RepositoriesViewState {
         OK,
-        ERROR,
-        SEARCHING
+        ERROR_ON_FIRST_PAGE,
+        ERROR_WITH_NEXT_PAGE,
+        SEARCHING,
+        USER_NOT_FOUND,
+        EMPTY_STATE
     }
 
 }

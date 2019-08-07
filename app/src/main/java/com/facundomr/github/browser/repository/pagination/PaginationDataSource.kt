@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.facundomr.github.browser.ReposByUserQuery
 import com.facundomr.github.browser.repository.DataRepository
-import com.facundomr.github.browser.ui.repositories.UserRepositoriesViewModel
+import com.facundomr.github.browser.ui.repositories.UserRepositoriesViewModel.RepositoriesViewState
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -14,26 +14,34 @@ class PaginationDataSource(val username: String) : PageKeyedDataSource<String, R
         DataRepository()
     }
 
-    val networkState = MutableLiveData<UserRepositoriesViewModel.RepositoriesViewState>()
+    val viewState = MutableLiveData<RepositoriesViewState>()
 
     override fun loadInitial(
         params: LoadInitialParams<String>,
         callback: LoadInitialCallback<String, ReposByUserQuery.Node>) {
 
-        networkState.postValue(UserRepositoriesViewModel.RepositoriesViewState.SEARCHING)
+        viewState.postValue(RepositoriesViewState.SEARCHING)
 
         GlobalScope.launch {
 
-            val result = repository.searchRepositories(user = username, limit = params.requestedLoadSize)
+            val result = repository.searchRepositories(user = username, limit = params.requestedLoadSize)!!
 
-            val list = result.data()?.user()?.repositories()?.nodes()!!
-            val before = result.data()?.user()?.repositories()?.pageInfo()?.startCursor()
-            val after = result.data()?.user()?.repositories()?.pageInfo()?.endCursor()
+            if (result.data()?.user() == null) {
+                viewState.postValue(RepositoriesViewState.USER_NOT_FOUND)
+            } else if (result.data()?.user()?.repositories()?.nodes()?.isEmpty()!!) {
+                viewState.postValue(RepositoriesViewState.EMPTY_STATE)
 
-            val totalCount = result.data()?.user()?.repositories()?.totalCount()
+            } else {
 
-            callback.onResult(list!!, 0, totalCount!!, before, after)
-            networkState.postValue(UserRepositoriesViewModel.RepositoriesViewState.OK)
+                val list = result.data()?.user()?.repositories()?.nodes()!!
+                val before = result.data()?.user()?.repositories()?.pageInfo()?.startCursor()
+                val after = result.data()?.user()?.repositories()?.pageInfo()?.endCursor()
+
+                val totalCount = result.data()?.user()?.repositories()?.totalCount()
+
+                callback.onResult(list!!, 0, totalCount!!, before, after)
+                viewState.postValue(RepositoriesViewState.OK)
+            }
         }
     }
 

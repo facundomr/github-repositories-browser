@@ -8,4 +8,5 @@
     <string name="closed_prs">Closed PRs</string>
     <string name="open_issues">Open issues</string>
     <string name="closed_issues">Closed issues</string>
+    <string name="user_not_found">User not found. Try with another username.</string>
 </resources>
