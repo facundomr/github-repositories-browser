@@ -22,9 +22,6 @@ query ReposByUserQuery($query: String!, $limit: Int!, $previousPageKey: String, 
                     totalCount
                 }
             }
-
         }
-
-
     }
 }
