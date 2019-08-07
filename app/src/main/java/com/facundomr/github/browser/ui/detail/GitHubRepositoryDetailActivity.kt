@@ -1,6 +1,7 @@
 package com.facundomr.github.browser.ui.detail
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -16,6 +17,8 @@ class GitHubRepositoryDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_github_repository_detail)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val repository = intent.extras?.get("repository") as GitHubRepository
         viewModel = ViewModelProviders.of(this, GitHubRepositoryDetailViewModelFactory(repository))
@@ -42,4 +45,8 @@ class GitHubRepositoryDetailActivity : AppCompatActivity() {
         })
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        finish()
+        return super.onOptionsItemSelected(item)
+    }
 }

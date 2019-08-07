@@ -2,6 +2,7 @@ package com.facundomr.github.browser.ui.repositories
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -36,6 +37,8 @@ class UserRepositoriesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_repositories)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val username = intent.extras?.getString("username", "")!!
         viewModel = ViewModelProviders.of(this, UserRepositoriesViewModelFactory(username))
@@ -74,4 +77,8 @@ class UserRepositoriesActivity : AppCompatActivity() {
         }
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        finish()
+        return super.onOptionsItemSelected(item)
+    }
 }
