@@ -3,23 +3,16 @@ package com.facundomr.github.browser.repository.pagination
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.facundomr.github.browser.repository.DataRepository
-import com.facundomr.github.browser.repository.GitHubGraphQLDataSource
 import com.facundomr.github.browser.ui.model.GitHubRepository
 import com.facundomr.github.browser.ui.repositories.UserRepositoriesViewModel.RepositoriesViewState
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class PaginationDataSource(val username: String) : PageKeyedDataSource<String, GitHubRepository>() {
-
-    private val repository : DataRepository by lazy {
-        DataRepository(GitHubGraphQLDataSource())
-    }
+class PaginationDataSource(private val username: String, private val repository: DataRepository) : PageKeyedDataSource<String, GitHubRepository>() {
 
     val viewState = MutableLiveData<RepositoriesViewState>()
 
-    override fun loadInitial(
-        params: LoadInitialParams<String>,
-        callback: LoadInitialCallback<String, GitHubRepository>) {
+    override fun loadInitial( params: LoadInitialParams<String>, callback: LoadInitialCallback<String, GitHubRepository>) {
 
         viewState.postValue(RepositoriesViewState.SEARCHING)
 
@@ -39,7 +32,6 @@ class PaginationDataSource(val username: String) : PageKeyedDataSource<String, G
             } catch (t: Throwable) {
                 viewState.postValue(RepositoriesViewState.ERROR_ON_FIRST_PAGE)
             }
-
         }
     }
 
