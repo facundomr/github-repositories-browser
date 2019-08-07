@@ -1,18 +1,14 @@
-query ReposByUserQuery($username: String!, $limit: Int!, $previousPageKey: String, $nextPageKey: String) {
-    user(login: $username) {
-        repositories(first: $limit, after:$nextPageKey, before: $previousPageKey) {
-            pageInfo {
-                startCursor
-                hasNextPage
-                endCursor
-            }
-            totalCount
-            nodes {
+query ReposByUserQuery($query: String!, $limit: Int!, $previousPageKey: String, $nextPageKey: String) {
+    search(query:$query, type:REPOSITORY, first:$limit, after:$nextPageKey, before:$previousPageKey){
+        repositoryCount
+        pageInfo {
+            startCursor
+            endCursor
+        }
+        nodes {
+            ... on Repository{
                 name
                 url
-                owner {
-                    login
-                }
                 closedPrs: pullRequests(states:[CLOSED, MERGED]) {
                     totalCount
                 }
@@ -26,6 +22,9 @@ query ReposByUserQuery($username: String!, $limit: Int!, $previousPageKey: Strin
                     totalCount
                 }
             }
+
         }
+
+
     }
 }

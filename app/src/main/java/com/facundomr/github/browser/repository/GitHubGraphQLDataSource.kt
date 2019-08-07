@@ -40,7 +40,7 @@ class GitHubGraphQLDataSource {
     suspend fun searchRepositories(user: String, limit: Int, previousPageKey: String? = null, nextPageKey: String? = null): Response<ReposByUserQuery.Data> {
 
         val repositoriesQuery = ReposByUserQuery.builder()
-            .username(user)
+            .query("user:$user")
             .previousPageKey(previousPageKey)
             .nextPageKey(nextPageKey)
             .limit(limit)
