@@ -10,6 +10,6 @@
     <string name="closed_issues">Closed issues</string>
     <string name="error_searching_repositories">An error occurred while trying to search for repositories. Verify your Internet connection and try again.</string>
     <string name="empty_state">User doesn\'t exists or doesn\'t have repositories.</string>
-    <string name="error_with_next_page">An error ocurred while fetching repositories. Verify Internet connection and try again.</string>
+    <string name="error_with_next_page">An error ocurred while fetching repositories. Verify your Internet connection and try again.</string>
     <string name="required">Required</string>
 </resources>
