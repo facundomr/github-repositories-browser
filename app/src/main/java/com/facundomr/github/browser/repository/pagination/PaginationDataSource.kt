@@ -3,15 +3,15 @@ package com.facundomr.github.browser.repository.pagination
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.facundomr.github.browser.ReposByUserQuery
-import com.facundomr.github.browser.repository.GitHubRepository
+import com.facundomr.github.browser.repository.DataRepository
 import com.facundomr.github.browser.ui.repositories.UserRepositoriesViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class PaginationDataSource(val username: String) : PageKeyedDataSource<String, ReposByUserQuery.Node>() {
 
-    private val repository : GitHubRepository by lazy {
-        GitHubRepository()
+    private val repository : DataRepository by lazy {
+        DataRepository()
     }
 
     val networkState = MutableLiveData<UserRepositoriesViewModel.RepositoriesViewState>()

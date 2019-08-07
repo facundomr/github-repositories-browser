@@ -11,9 +11,8 @@ import com.facundomr.github.browser.R
 import com.facundomr.github.browser.ReposByUserQuery
 import kotlinx.android.synthetic.main.item_repository.view.*
 
-class GitHubRepositoriesAdapter : PagedListAdapter<ReposByUserQuery.Node, GitHubRepositoryViewHolder>(
-    DIFF_CALLBACK
-) {
+class GitHubRepositoriesAdapter(val clickListener: (ReposByUserQuery.Node?) -> Unit)
+    : PagedListAdapter<ReposByUserQuery.Node, GitHubRepositoryViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GitHubRepositoryViewHolder {
         val itemLayoutView = LayoutInflater.from(parent.context).inflate(R.layout.item_repository, null)
@@ -28,6 +27,10 @@ class GitHubRepositoriesAdapter : PagedListAdapter<ReposByUserQuery.Node, GitHub
             holder.showPlaceHolder()
         } else {
             holder.render(item)
+        }
+
+        holder.itemView.setOnClickListener {
+            clickListener.invoke(item)
         }
     }
 

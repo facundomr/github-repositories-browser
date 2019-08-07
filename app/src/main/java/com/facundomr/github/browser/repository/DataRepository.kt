@@ -4,7 +4,7 @@ import androidx.paging.PageKeyedDataSource
 import com.apollographql.apollo.api.Response
 import com.facundomr.github.browser.ReposByUserQuery
 
-class GitHubRepository {
+class DataRepository {
 
     private val datasource: GitHubGraphQLDataSource by lazy {
         GitHubGraphQLDataSource()

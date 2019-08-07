@@ -11,6 +11,7 @@ import androidx.lifecycle.Transformations
 
 class UserRepositoriesViewModel(val username: String) : ViewModel() {
 
+    val title = MutableLiveData("$username repositories")
     var repositories: LiveData<PagedList<ReposByUserQuery.Node>> = MutableLiveData()
     lateinit var viewState: LiveData<RepositoriesViewState>
 
@@ -30,6 +31,8 @@ class UserRepositoriesViewModel(val username: String) : ViewModel() {
 
         repositories = LivePagedListBuilder(dataFactory, config).build()
     }
+
+    fun shouldNavigateToDetail(gitHubRepository: ReposByUserQuery.Node?) = (gitHubRepository != null)
 
     enum class RepositoriesViewState {
         OK,

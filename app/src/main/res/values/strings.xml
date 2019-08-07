@@ -3,4 +3,9 @@
     <string name="search">Search repositories</string>
     <string name="enter_user_name">GitHub username</string>
     <string name="searching_user_repositories">Searching user repositories…</string>
+    <string name="title_activity_git_hub_repository_detail">GitHubRepositoryDetailActivity</string>
+    <string name="open_prs">Open PRs</string>
+    <string name="closed_prs">Closed PRs</string>
+    <string name="open_issues">Open issues</string>
+    <string name="closed_issues">Closed issues</string>
 </resources>
