@@ -23,7 +23,8 @@ class UserRepositoriesViewModel(val username: String) : ViewModel() {
         val dataFactory = PaginationDataSourceFactory(username)
 
         val config = PagedList.Config.Builder()
-            .setPageSize(30)
+            .setPageSize(20)
+            .setInitialLoadSizeHint(45)
             .setEnablePlaceholders(true)
             .build()
 
