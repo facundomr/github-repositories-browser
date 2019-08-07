@@ -4,6 +4,8 @@ query ReposByUserQuery($query: String!, $limit: Int!, $previousPageKey: String, 
         pageInfo {
             startCursor
             endCursor
+            hasPreviousPage
+            hasNextPage
         }
         nodes {
             ... on Repository{

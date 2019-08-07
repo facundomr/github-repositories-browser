@@ -27,9 +27,12 @@ class DataRepository(private val datasource: GitHubGraphQLDataSource) {
             repositories.add(githubRepository)
         }
 
-        return GitHubResponse(repositories = repositories, totalCount = searchObject?.repositoryCount()!!,
-                              previousPageKey = searchObject.pageInfo().startCursor(),
-                              nextPageKey = searchObject.pageInfo().endCursor()
+        val nextPageKey = if (searchObject?.pageInfo()?.hasNextPage()!!) searchObject.pageInfo().endCursor() else null
+        val previousPageKey = if (searchObject.pageInfo().hasPreviousPage()) searchObject.pageInfo().endCursor() else null
+
+        return GitHubResponse(repositories = repositories, totalCount = searchObject.repositoryCount(),
+                              previousPageKey = previousPageKey,
+                              nextPageKey = nextPageKey
         )
     }
 
