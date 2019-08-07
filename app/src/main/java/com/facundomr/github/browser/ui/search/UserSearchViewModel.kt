@@ -21,7 +21,7 @@ class UserSearchViewModel : ViewModel() {
     }
 
     fun textChanged(username: String) {
-        this.username = username
+        this.username = username.trim()
         userNameIsValid()
     }
 

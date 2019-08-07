@@ -48,7 +48,7 @@ class UserSearchActivity : AppCompatActivity() {
 
             if (viewModel.userNameIsValid()) {
                 val intent = Intent(UserSearchActivity@this, UserRepositoriesActivity::class.java)
-                intent.putExtra("username", username.text.toString())
+                intent.putExtra("username", viewModel.username)
                 startActivity(intent)
             }
         }
